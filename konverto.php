@@ -1,9 +1,9 @@
 <?php
 /**
  * Plugin Name: Konverto
- * Description: Konverto converts URLS from www.joerg-burbach.de into clickable links like &lt;a href="http://www.joerg-burbach.de" title="www.joerg-burbach.de"&lt;www.joerg-burbach.de&lt;/a&gt;
- * Plugin URI: http://joerg-burbach.de/
+ * Description: Konverto converts every URL in your posts from something like www.domain.com into clickable links like &lt;a href="http://www.domain.com" title="www.domain.com"&lt;www.domain.com&lt;/a&gt;
  * Author: Jörg Burbach
+ * Plugin URI: http://joerg-burbach.de/
  * Author URI: http://joerg-burbach.de/
  * Version: 1.0
  * Text Domain: konverto-plugin
