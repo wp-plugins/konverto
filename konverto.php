@@ -5,12 +5,12 @@
  * Author: Jörg Burbach
  * Plugin URI: http://joerg-burbach.de/
  * Author URI: http://joerg-burbach.de/
- * Version: 1.0
+ * Version: 1.1.0
  * Text Domain: konverto-plugin
  * License: GPL2v2
 **/
 
-define( 'konverto_VERSION', '100' );
+define( 'konverto_VERSION', '1.1.0' );
 define( 'konverto_PATH', dirname( __FILE__ ) );
 define( 'konverto_FOLDER', basename( konverto_PATH ) );
 define( 'konverto_URL', plugins_url() . '/' . konverto_FOLDER );
@@ -80,8 +80,7 @@ class konverto_Base {
 		echo "</select>\n";
 		echo "</td></tr>\n";
 
-		echo "<tr><td><input type=\"hidden\" name=\"action\" value=\"update\" /></td>\n";
-		echo "<td><input type=\"submit\" value=\"Einstellungen Sichern / Save\" /></td></tr>";
+		echo "<tr><td><input type=\"hidden\" name=\"action\" value=\"update\" /><input type=\"submit\" value=\"Einstellungen Sichern / Save\" /></td><td>Version " . konverto_VERSION . "</td></tr>";
 		echo "</table>";
 		echo "</form></p>";
 		echo "</div>";
@@ -89,17 +88,21 @@ class konverto_Base {
 		echo "<form action=\"https://www.paypal.com/cgi-bin/webscr\" method=\"post\"><div class=\"paypal-donations\"><input type=\"hidden\" name=\"cmd\" value=\"_donations\"><input type=\"hidden\" name=\"business\" value=\"joerg.burbach@quadworks.de\"><input type=\"hidden\" name=\"item_name\" value=\"Konverto-Plugin (Jörg Burbach)\"><input type=\"hidden\" name=\"item_number\" value=\"Konverto-Plugin (Jörg Burbach)\"><input type=\"hidden\" name=\"amount\" value=\"2.50\"><input type=\"hidden\" name=\"currency_code\" value=\"EUR\"><input type=\"image\" src=\"https://www.paypal.com/de_DE/DE/i/btn/btn_donate_SM.gif\" name=\"submit\" alt=\"PayPal - The safer, easier way to pay online.\"><img alt=\"\" src=\"https://www.paypal.com/en_US/i/scr/pixel.gif\" width=\"1\" height=\"1\" target=\"_blank\"></div></form>";
 
 	}
-	
-	// Im Post www.joerg-burbach.de zu http://www.joerg-burbach.de ändern
+
+	// Change URLs from www.domain.com to clickable links
+	// Changes mail-addresses, too
+	// removes all trailing tags, and refurnish
+	// removes all links, instead recreates them
 	function konverto_the_content($content) {
 		$konverto=get_option("konverto");
 		if ($konverto["aktiv"]<>"on") { return $content; }	
 		if ($konverto["titel"]=="on") { $link = "title=\"\$1\""; } else { $link = ""; }
-		if ($konverto["ziel"]<>"") {  $ziel = "target=\"_blank\""; }	
-		$text = preg_replace('/(?<!http:\/\/|https:\/\/|\"|=|\'|\'>|\">)(www\..*?)(\s|\Z|\.\Z|\.\s|\<|\>|,)/i',"<a href=\"http://$1\"" . $ziel . " " . $link . ">$1</a>$2",$content);
+		if ($konverto["ziel"]<>"") {  $ziel = "target=\"_blank\""; }
+		$text = preg_replace("/\<a([^>]*)\>([^<]*)\<\/a\>/i", "$2", $content);	// Strip-Tags first
+		$text = preg_replace('/(?<!http:\/\/|https:\/\/|\"|=|\'|\'>|\">)(www\..*?)(\s|\Z|\.\Z|\.\s|\<|\>|,)/i',"<a href=\"http://$1\"" . $ziel . " " . $link . ">$1</a>$2",$text);
 		$text = preg_replace('/(?<!\"|=|\'|\'>|\">|site:)(https?:\/\/(www){0,1}.*?)(\s|\Z|\.\Z|\.\s|\<|\>|,)/i',"<a href=\"$1\"" . $ziel . " " . $link . ">$1</a>$3",$text);
-		if ($konverto["email"]=="on") { $text = preg_replace('/(\S+@\S+\.\S+)/i',"<a href=\"mailto:$1\" " . $link . ">$1</a>",$text); }
-		return $text;
+		if ($konverto["email"]=="on") { $text = preg_replace('/<[^>]+\>(\S+@\S+\.\S+)<[^>]+\>/i',"<a href=\"mailto:$1\" " . $link . ">$1</a>",$text); }
+		return $text;		
 	}
 	
 }
