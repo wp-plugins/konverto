@@ -12,8 +12,7 @@ License: GPLv2
  
 == Description ==
  
-This Plugin converts URLs from www.domain.com to a clickable link to http://www.domain.com.
-Please note: currently all <a-tags will be redefined. Version 1.2.0 will fix this.
+This Plugin converts URLs from www.domain.com to a clickable link.
 
 == Installation ==
 
@@ -30,3 +29,11 @@ Optional:
 == Changelog ==
 
 1.1.0 - added support for links already clickable
+
+== Frequently Asked Questions ==
+
+1. Konverto removes information from my <a-tag
+Currently all <a-tags will be redefined. Version 1.2.0 will fix this.
+
+== Upgrade Notice ==
+== Screenshots ==
