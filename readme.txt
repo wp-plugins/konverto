@@ -10,14 +10,16 @@ Tested up to: 3.5.1
 Stable tag: 1.1.0
 License: GPLv2
  
-Plugin to convert every URL in your post from something like www.domain.com to http://www.domain.com.
-
 == Description ==
-
+ 
 This Plugin converts URLs from www.domain.com to a clickable link to http://www.domain.com.
+Please note: currently all <a-tags will be redefined. Version 1.2.0 will fix this.
 
-* please activate in Preferences before using *
+== Installation ==
 
+1. Upload 'konverto' to the `/wp-content/plugins/` directory
+2. Activate the plugin through the 'Plugins' menu in WordPress
+3. Activate in Preferences of Konverto
 
 Optional:
 * Set target to new page or same page
@@ -25,9 +27,6 @@ Optional:
 * convert mail-addresses to clickable links using mailto
 
 
-== Installation ==
-Upload and activate the plugin. Go to preferences to configure.
+== Changelog ==
 
-== History ==
-
-1.1.o - added support for links already clickable
+1.1.0 - added support for links already clickable
